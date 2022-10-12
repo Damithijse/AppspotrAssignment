@@ -10,7 +10,7 @@ const logo = require('../assests/img/logo.png');
 class SplashScreen extends Component {
     componentDidMount(){
         setTimeout( () => {
-          this.props.navigation.navigate('Home');
+         this.props.navigation.navigate('Home');
         },1500);
     }
 

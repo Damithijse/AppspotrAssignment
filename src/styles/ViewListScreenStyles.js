@@ -63,7 +63,7 @@ module.exports = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: '#F4F4F4'
     },
     spalshLogo:{
         width: '60%',
