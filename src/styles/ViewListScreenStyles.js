@@ -58,7 +58,18 @@ module.exports = StyleSheet.create({
     },
     mainView: {
         paddingBottom: 20
+    },
+    splashContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    spalshLogo:{
+        width: '60%',
+        height: '40%'
     }
+
 
 
 });

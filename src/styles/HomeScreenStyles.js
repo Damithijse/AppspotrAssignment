@@ -14,8 +14,8 @@ module.exports = StyleSheet.create({
     mainViewStyles:{
         backgroundColor: '#0D043B',
         width: '100%',
+        height: '80%',
         alignItems: 'center',
-        paddingBottom: 30,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10
     },
@@ -35,6 +35,18 @@ module.exports = StyleSheet.create({
         alignItems: 'center',
         shadowColor: '#171717',
         elevation: 3,
+    },
+    searchSubContainer: {
+        width: '100%',
+        height: '60%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    filterView: {
+        width: '90%',
+        height: '40%',
+        justifyContent: 'center',
+        paddingTop: 10
     },
     searchSubView:{
         flexDirection: 'row',
@@ -58,9 +70,9 @@ module.exports = StyleSheet.create({
     },
     addView: {
         flexDirection: 'row',
-        height: 90,
+        height: '20%',
         width: '90%',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     addTxt: {
         fontSize: 17,
@@ -75,6 +87,30 @@ module.exports = StyleSheet.create({
         fontFamily: 'sans-serif-medium',
         color: 'gray'
     },
+    yourListView:{
+        width: '90%',
+        height: 70,
+        justifyContent: 'center',
+    },
+    yourListView2:{
+        width: '90%',
+        height: 100,
+        justifyContent: 'center',
+    },
+    nodataView:{
+        width: '100%',
+        height: '50%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    noDataTxt: {
+      color: 'gray',
+    },
+    yourListTxt: {
+        fontSize: 17,
+        fontFamily: 'sans-serif-medium',
+    },
+
     topicView:{
         marginTop:  StatusBar.currentHeight + 10,
         width: '100%',
@@ -203,7 +239,7 @@ module.exports = StyleSheet.create({
     sub_buttonView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '55%'
+        width: '60%'
     },
     sub_buttonView2: {
         flexDirection: 'row',

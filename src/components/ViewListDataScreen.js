@@ -35,7 +35,9 @@ class ViewListDataScreen extends Component {
                             <Text style={style.subTxt}>Task Name</Text>
                             <View style={style.textInputStyle}
                             >
-                                <Text style={style.normalTxt}>{this.props.selectedItem.taskName}</Text>
+                                <Text style={style.normalTxt}>
+                                    {this.props.selectedItem.taskName}
+                                </Text>
                             </View>
                         </View>
                         <View style={style.mainView}>
@@ -43,7 +45,8 @@ class ViewListDataScreen extends Component {
                             <View style={style.textInputStyle}
                             >
                                 <Text style={style.normalTxt}>
-                                    {this.props.selectedItem.categoriesId === 1 ? 'Business' : 'Personal'}
+                                    {this.props.selectedItem.categoriesId === 1 ?
+                                        'Business' : 'Personal'}
                                 </Text>
                             </View>
                         </View>

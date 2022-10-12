@@ -2,12 +2,12 @@ import firestore from '@react-native-firebase/firestore';
 import async from 'async';
 import { showMessage } from 'react-native-flash-message';
 
+// -------------get list data----------------------
 export const getListOfData = () => async (dispatch) => {
     var array = [];
     firestore()
         .collection('List')
         .onSnapshot(documentSnapshot => {
-            //console.log(documentSnapshot);
             array = [];
 
             async.forEach(
@@ -52,7 +52,9 @@ export const setSelectedItem = (data) => async (dispatch) => {
     });
 
 };
-export const searchItems = (name, filter) => async (dispatch) => {
+
+// -------------search list data----------------------
+export const searchItems = (name) => async (dispatch) => {
     var array = [];
     firestore()
         .collection('List')
@@ -124,6 +126,8 @@ export const filterItems = (filter) => async (dispatch) => {
         });
 
 };
+
+// -------------delete list data----------------------
 export const deleteData = (id) => async (dispatch) => {
     firestore()
         .collection('List')
@@ -137,6 +141,8 @@ export const deleteData = (id) => async (dispatch) => {
         });
 
 };
+
+// -------------update list data----------------------
 export const updateData = (id, name, cid) => async (dispatch) => {
     firestore()
         .collection('List')
@@ -158,6 +164,7 @@ export const updateData = (id, name, cid) => async (dispatch) => {
 
 };
 
+// -------------add list data----------------------
 export const addList = (taskName, CID, length) => async (dispatch) => {
     firestore()
         .collection('List')

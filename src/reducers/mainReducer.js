@@ -3,7 +3,6 @@ const INITIAL_STATE = {
   visible: false,
   searchList: [],
   selectedItem: [],
-  score1: [],
 };
 
 export default (state = INITIAL_STATE, action) => {

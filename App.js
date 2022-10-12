@@ -3,13 +3,14 @@ import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FlashMessage from 'react-native-flash-message';
+import {Provider} from 'react-redux';
+import {applyMiddleware, createStore} from 'redux';
+import ReduxThunk from 'redux-thunk';
+
 import SplashScreen from './src/components/SplashScreen';
 import HomeScreen from './src/components/HomeScreen'
 import ViewScreen from './src/components/ViewListDataScreen';
 import SearchScreen from './src/components/SearchScreen'
-import {Provider} from 'react-redux';
-import {applyMiddleware, createStore} from 'redux';
-import ReduxThunk from 'redux-thunk';
 import reducer from './src/reducers/main/index';
 
 const Stack = createNativeStackNavigator();

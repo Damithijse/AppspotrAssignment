@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Image,
     Alert,
-    BackHandler
+    BackHandler,
+    StatusBar,
 } from 'react-native';
 import {connect} from 'react-redux';
 import style from '../styles/HomeScreenStyles';
@@ -22,8 +23,12 @@ const search = require('../assests/img/icons8-search-90.png');
 const view = require('../assests/img/icons8-view-96.png');
 const remove = require('../assests/img/icons8-delete-90.png');
 const filter = require('../assests/img/icons8-filter-64.png');
+
 class SearchScreen extends Component {
     componentDidMount(){
+        StatusBar.setBackgroundColor('rgba(0,0,0,0)');
+        StatusBar.setBarStyle('dark-content');
+        StatusBar.setTranslucent(true);
         BackHandler.addEventListener(
             'hardwareBackPress',
             this.backAction,
@@ -46,38 +51,33 @@ class SearchScreen extends Component {
         return(
             <View style={style.container}>
                 <View style={style.mainView} >
-                    <View style={style.mainViewStyles}>
-                        <View style={style.topicView}>
-                            <Text style={style.topicTxt}>
-                                TO - DO LIST
-                            </Text>
-                        </View>
-                        <View style={style.searchView}>
-                            <View style={style.searchSubView}>
-                                <Image source={search} style={style.icons} />
-                                <TextInput
-                                    placeholder={'Search..'}
-                                    placeholderTextColor={'gray'}
-                                    onChangeText={(text) => {
-                                        this.setState({
-                                            filter: false
-                                        });
-                                        this.props.searchItems(text);
-                                    }}
-                                    style={style.searchTxt1}/>
-                            </View>
-                            <TouchableOpacity onPress={()=>{
-                                this.setState({
-                                    filter: !this.state.filter
-                                })
-                            }}>
-                                <Image source={filter} style={style.icons} />
-                            </TouchableOpacity>
+                        <View style={style.searchSubContainer}>
+                            <View style={style.searchView}>
+                                <View style={style.searchSubView}>
+                                    <Image source={search} style={style.icons} />
+                                    <TextInput
+                                        placeholder={'Search..'}
+                                        placeholderTextColor={'gray'}
+                                        onChangeText={(text) => {
+                                            this.setState({
+                                                filter: false
+                                            });
+                                            this.props.searchItems(text);
+                                        }}
+                                        style={style.searchTxt1}/>
+                                </View>
+                                <TouchableOpacity onPress={()=>{
+                                    this.setState({
+                                        filter: !this.state.filter
+                                    })
+                                }}>
+                                    <Image source={filter} style={style.icons} />
+                                </TouchableOpacity>
 
+                            </View>
                         </View>
-                    </View>
                     {this.state.filter ? (
-                        <View style={{ width: '90%', height: 'auto', justifyContent: 'center', paddingTop: 10}}>
+                        <View style={style.filterView}>
                             <Text
                                 style={style.taskTxt}
                             >
@@ -102,69 +102,88 @@ class SearchScreen extends Component {
                                     style={style.mainDropDownStyle}
                                     options={['Business', 'Personal']}/>
 
-                            <View style={{width: '90%', height: 70, justifyContent: 'center',}}>
-                                <Text style={{fontSize: 17,
-                                    fontFamily: 'sans-serif-medium',}}>Your List</Text>
+                            <View style={style.yourListView}>
+                                <Text style={style.yourListTxt}>Your List</Text>
                             </View>
 
                         </View>
                     ): (
-                        <View style={{width: '90%', height: 100, justifyContent: 'center',}}>
-                            <Text style={{fontSize: 17,
-                                fontFamily: 'sans-serif-medium',}}>Your List</Text>
+                        <View style={style.yourListView2}>
+                            <Text style={style.yourListTxt}>Your List</Text>
                         </View>
                     )}
 
 
                 </View>
-                <View style={{flex: this.state.filter ? 3 : 4, width: '100%', alignItems: 'center'}}>
-                    <ScrollView>
-                        {this.props.searchList.map((item) => {
-                            return (
-                                // ----------------------list of data---------------------------
-                                <View
-                                    style={[style.subContainer,{ borderColor: item.categoriesId === 1 ? '#BC1EDD' : '#2F74E0'}]}
-                                >
-                                    <View style={style.textView}>
-                                        <Text numberOfLines={1} style={style.listTxt}>
-                                            {item.taskName}
-                                        </Text>
-                                    </View>
-                                    <View style={style.buttonView}>
-                                        <Text>{item.categoriesId === 1 ? 'Business' : 'Personal'}</Text>
-                                        <View style={style.sub_buttonView2}>
-                                            <TouchableOpacity
-                                                onPress={()=>{
-                                                    this.props.setSelectedItem(item);
-                                                    this.props.navigation.navigate('View');
-                                                }}
-                                                style={[style.buttons,{ backgroundColor: '#19BF19'}]}>
-                                                <Image source={view} style={style.img} />
-                                            </TouchableOpacity>
-                                            <TouchableOpacity
-                                                onPress={()=>{
-                                                    Alert.alert(
-                                                        'Delete',
-                                                        'Would you like to delete this item?',
-                                                        [
-                                                            {
-                                                                text: 'Cancel',
-                                                                onPress: () => {},
-                                                                style: 'cancel',
-                                                            },
-                                                            {text: 'OK', onPress: () => {this.props.deleteData(item.DocID)}},
-                                                        ]
-                                                    );
-                                                }}
-                                                style={[style.buttons,{ backgroundColor: '#C22126'}]}>
-                                                <Image source={remove} style={style.img} />
-                                            </TouchableOpacity>
+                <View
+                    style={{
+                        flex: this.state.filter ? 3 : 4, width: '100%',
+                        alignItems: 'center'
+                    }}>
+                    {this.props.searchList.length === 0 ? (
+                       <View style={style.nodataView}>
+                           <Text style={[style.noDataTxt, {fontSize: 20}]}>
+                               No result found
+                           </Text>
+                           <Text style={style.noDataTxt}>
+                               Please type full task name
+                           </Text>
+                       </View>
+                    ) : (
+                        <ScrollView>
+                            {this.props.searchList.map((item) => {
+                                return (
+                                    // ----------------------list of data---------------------------
+                                    <View
+                                        style={[
+                                            style.subContainer,{ borderColor:
+                                                    item.categoriesId === 1 ? '#BC1EDD' : '#2F74E0'
+                                            }]}
+                                    >
+                                        <View style={style.textView}>
+                                            <Text numberOfLines={1} style={style.listTxt}>
+                                                {item.taskName}
+                                            </Text>
+                                        </View>
+                                        <View style={style.buttonView}>
+                                            <Text>{item.categoriesId === 1 ? 'Business' : 'Personal'}</Text>
+                                            <View style={style.sub_buttonView2}>
+                                                <TouchableOpacity
+                                                    onPress={()=>{
+                                                        this.props.setSelectedItem(item);
+                                                        this.props.navigation.navigate('View');
+                                                    }}
+                                                    style={[style.buttons,{ backgroundColor: '#19BF19'}]}>
+                                                    <Image source={view} style={style.img} />
+                                                </TouchableOpacity>
+                                                <TouchableOpacity
+                                                    onPress={()=>{
+                                                        Alert.alert(
+                                                            'Delete',
+                                                            'Would you like to delete this item?',
+                                                            [
+                                                                {
+                                                                    text: 'Cancel',
+                                                                    onPress: () => {},
+                                                                    style: 'cancel',
+                                                                },
+                                                                {text: 'OK', onPress: () => {
+                                                                        this.props.deleteData(item.DocID)
+                                                                    }},
+                                                            ]
+                                                        );
+                                                    }}
+                                                    style={[style.buttons,{ backgroundColor: '#C22126'}]}>
+                                                    <Image source={remove} style={style.img} />
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
                                     </View>
-                                </View>
-                            );
-                        })}
-                    </ScrollView>
+                                );
+                            })}
+                        </ScrollView>
+                    )}
+
                 </View>
 
             </View>
